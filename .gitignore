@@ -1,12 +1,30 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
 # Package Files #
 *.jar
 *.war
 *.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+/thaumcraft
+/cpw
+/ibxm
+/net/minecraft
+/net/minecraftforge
+/mods
+/net/aetherteam
+/assets/natura
+/assets/aether
+/thaumcraft
+/assets/forge
+/com
+/paulscode
+*.cfg
+fmlversion.properties
+forge_logo.png
+mcp.png
+mcpmod.info
+Start.java
+*.lzma
+
+#Hidden mac file
+.DS_Store
