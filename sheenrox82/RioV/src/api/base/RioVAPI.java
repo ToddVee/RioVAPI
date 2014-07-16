@@ -72,7 +72,7 @@ public class RioVAPI
 	/**
 	 * Get a RioV Item using a string.
 	 * 
-	 * @param itemName - Object name in RioVItems.java (check Github)
+	 * @param itemName - Object name in RioVItems.java (check Github).
 	 */
 	public Item getRioVItem(String itemName)
 	{
@@ -94,7 +94,7 @@ public class RioVAPI
 	/**
 	 * Get a RioV Block using a string.
 	 * 
-	 * @param blockName - Object name in RioVBlocks.java (check Github)
+	 * @param blockName - Object name in RioVBlocks.java (check Github).
 	 */
 	public Block getRioVBlock(String blockName)
 	{
@@ -110,6 +110,26 @@ public class RioVAPI
 			//to this until the block is found. This is so 
 			//you don't crash with this API in Eclipse because you don't have the RioV source code.
 			return Blocks.stone;
+		}
+	}
+	
+	/**
+	 * Get a RioV Config field using a string.
+	 * 
+	 * @param field - Field name in Config.java (check Github).
+	 */
+	public boolean getConfigFields(String field)
+	{
+		try
+		{
+			Class riovBlocks = Class.forName("sheenrox82.RioV.src.base.Config");
+			boolean blockToGet = (Boolean)riovBlocks.getDeclaredField(field).get(null);
+			return blockToGet;
+		}
+		catch(Exception e)
+		{
+			//If field is not found, the boolean will be false.
+			return false;
 		}
 	}
 }
