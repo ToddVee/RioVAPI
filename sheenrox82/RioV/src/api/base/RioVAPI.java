@@ -42,7 +42,7 @@ public class RioVAPI
 	/**
 	 * RioV tab.
 	 */
-	public CreativeTabs tab = new CreativeTabs(mod_id) {public Item getTabIconItem() {return Item.getItemFromBlock(getUtil().getRioVBlock("infuser"));}};
+	public CreativeTabs tab = new CreativeTabs("RioV") {public Item getTabIconItem() {return Item.getItemFromBlock(getUtil().getRioVBlock("infuser"));}};
 
 	/**
 	 * The API instance.
