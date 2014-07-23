@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class PlayerStorage
+public class PlayerStorage 
 {
 	private static final Map<String, NBTTagCompound> entityPlayerData = new HashMap<String, NBTTagCompound>();
 

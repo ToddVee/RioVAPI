@@ -1,9 +1,12 @@
 package sheenrox82.RioV.src.api.util;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import sheenrox82.RioV.src.api.base.RioVAPI;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.DimensionManager;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -54,6 +58,12 @@ public class RioVAPIUtil
 	public static void sendMessageToAll(String message, EntityPlayer player)
 	{
 		FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage(addChatMessage(EnumChatFormatting.GOLD, message + player.getDisplayName()));
+	}
+
+	public static void registerDimension(int id, Class worldProvider)
+	{
+		DimensionManager.registerProviderType(id, worldProvider, true);
+		DimensionManager.registerDimension(id, id);
 	}
 
 	/**
@@ -218,12 +228,12 @@ public class RioVAPIUtil
 			if(field != null)
 			{
 				field.setAccessible(true);
-				
+
 				Field modField = Field.class.getDeclaredField("modifiers");
-				
+
 				modField.setAccessible(true);
 				modField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-				
+
 				field.set(instance, value);
 			}
 		}
@@ -232,7 +242,7 @@ public class RioVAPIUtil
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getUtilString(String utilString)
 	{
 		try
@@ -243,7 +253,7 @@ public class RioVAPIUtil
 		}
 		catch(Exception e)
 		{
-	
+
 			return "";
 		}
 	}
