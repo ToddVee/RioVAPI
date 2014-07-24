@@ -38,14 +38,14 @@ public class RioVArmor extends ItemArmor
 	{
 		if (stack.toString().contains("leggings")) 
 		{
-			return RioVAPI.mod_id + ":" + "textures/armor/" + armorNamePrefix + "_2.png";
+			return RioVAPI.getInstance().getUtil().mod_id + ":" + "textures/armor/" + armorNamePrefix + "_2.png";
 		}
 		if (stack.toString().contains("Leggings")) 
 		{
-			return RioVAPI.mod_id + ":" + "textures/armor/" + armorNamePrefix + "_2.png";
+			return RioVAPI.getInstance().getUtil().mod_id + ":" + "textures/armor/" + armorNamePrefix + "_2.png";
 		}
 
-		return RioVAPI.mod_id + ":" + "textures/armor/" + armorNamePrefix + "_1.png";
+		return RioVAPI.getInstance().getUtil().mod_id + ":" + "textures/armor/" + armorNamePrefix + "_1.png";
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class RioVArmor extends ItemArmor
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister par1IconRegister)
 	{		
-		this.itemIcon = par1IconRegister.registerIcon(RioVAPI.mod_id + ":" + RioVAPIUtil.getName(this.getUnlocalizedName()));
+		this.itemIcon = par1IconRegister.registerIcon(RioVAPI.getInstance().getUtil().mod_id + ":" + RioVAPIUtil.getName(this.getUnlocalizedName()));
 
 		if (RioVAPI.getInstance().botania)
 		{
@@ -146,17 +146,18 @@ public class RioVArmor extends ItemArmor
 		if(RioVAPI.getInstance().getUtil().getConfigBool("showToolInfo") == true)
 		{
 			var3.add(Color.gold + (var1.getMaxDamage() - var1.getItemDamage()) + " Uses");
-			var3.add(Color.dark_purple + "Protection: " + RioVArmor.getMaxDamageFactor(material));
+			var3.add(Color.dark_purple + "Protection: " + getMaxDamageFactor(material));
 		}
 	}
 
-	public static int getMaxDamageFactor(ArmorMaterial material)
+	public final int getMaxDamageFactor(ArmorMaterial material)
 	{
 		int maxDamageFactor = 0;
 
 		try 
 		{
-			Field fMaxDamageFactor = material.getClass().getDeclaredField("maxDamageFactor");
+			//will not work in eclipse environment
+			Field fMaxDamageFactor = material.getClass().getDeclaredField("field_78048_f");
 			fMaxDamageFactor.setAccessible(true);
 			maxDamageFactor = fMaxDamageFactor.getInt(material);
 		} 
