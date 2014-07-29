@@ -92,6 +92,11 @@ public class BlockCoreOne extends Block
 	@Override
 	public int quantityDropped(Random par1Random)
 	{
+		if(this == RioVAPI.getInstance().getUtil().getRioVBlock("netherCrystal"))
+		{
+			return 4;
+		}
+		
 		return 1;
 	}
 }
