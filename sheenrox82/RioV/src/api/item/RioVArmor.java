@@ -49,12 +49,6 @@ public class RioVArmor extends ItemArmor
 	}
 
 	@Override
-	public ArmorMaterial getArmorMaterial()
-	{
-		return this.material;
-	}
-
-	@Override
 	public boolean hasEffect(ItemStack par1ItemStack)
 	{
 		if(isInfused)
@@ -129,14 +123,6 @@ public class RioVArmor extends ItemArmor
 	public void registerIcons(IIconRegister par1IconRegister)
 	{		
 		this.itemIcon = par1IconRegister.registerIcon(RioVAPI.getInstance().getUtil().mod_id + ":" + RioVAPIUtil.getName(this.getUnlocalizedName()));
-
-		if (RioVAPI.getInstance().botania)
-		{
-			if (this == RioVAPI.getInstance().getUtil().getRioVItem("infusedManasteelHelm"))this.itemIcon = par1IconRegister.registerIcon("Botania:manasteelHelm");
-			if (this == RioVAPI.getInstance().getUtil().getRioVItem("infusedManasteelChest"))this.itemIcon = par1IconRegister.registerIcon("Botania:manasteelChest");
-			if (this == RioVAPI.getInstance().getUtil().getRioVItem("infusedManasteelLegs"))this.itemIcon = par1IconRegister.registerIcon("Botania:manasteelLegs");
-			if (this == RioVAPI.getInstance().getUtil().getRioVItem("infusedManasteelBoots"))this.itemIcon = par1IconRegister.registerIcon("Botania:manasteelBoots");
-		}
 	}
 
 	@Override
@@ -146,15 +132,7 @@ public class RioVArmor extends ItemArmor
 		if(RioVAPI.getInstance().getUtil().getConfigBool("showToolInfo") == true)
 		{
 			var3.add(Color.gold + (var1.getMaxDamage() - var1.getItemDamage()) + " Uses");
-
-			if(RioVAPI.getInstance().getUtil().getConfigBool("dev") == false)
-			{
-				var3.add(Color.dark_purple + "Protection: " + getMaxDamageFactor(material));
-			}
-			else
-			{
-				var3.add(Color.dark_purple + "Protection: " + getMaxDamageFactorDebug(material));
-			}
+			var3.add(Color.dark_purple + "Protection: " + getMaxDamageFactor(material));
 		}
 	}
 
@@ -164,29 +142,18 @@ public class RioVArmor extends ItemArmor
 
 		try 
 		{
-			//will not work in eclipse environment
-			Field fMaxDamageFactor = material.getClass().getDeclaredField("field_78048_f");
-			fMaxDamageFactor.setAccessible(true);
-			maxDamageFactor = fMaxDamageFactor.getInt(material);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return maxDamageFactor;
-	}
-
-	public final int getMaxDamageFactorDebug(ArmorMaterial material)
-	{
-		int maxDamageFactor = 0;
-
-		try 
-		{
-			//works only in eclipse environment
-			Field fMaxDamageFactor = material.getClass().getDeclaredField("maxDamageFactor");
-			fMaxDamageFactor.setAccessible(true);
-			maxDamageFactor = fMaxDamageFactor.getInt(material);
+			if(RioVAPI.getInstance().getUtil().getConfigBool("dev") == true)
+			{
+				Field fMaxDamageFactor = material.getClass().getDeclaredField("maxDamageFactor");
+				fMaxDamageFactor.setAccessible(true);
+				maxDamageFactor = fMaxDamageFactor.getInt(material);
+			}
+			else
+			{
+				Field fMaxDamageFactor = material.getClass().getDeclaredField("field_78048_f");
+				fMaxDamageFactor.setAccessible(true);
+				maxDamageFactor = fMaxDamageFactor.getInt(material);
+			}
 		} 
 		catch (Exception e)
 		{
